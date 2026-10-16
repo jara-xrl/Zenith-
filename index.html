@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ZENITH</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Cormorant+Garamond:wght@300;400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ============================================================
+     طبقة المقدمة السينمائية
+     ============================================================ -->
+<div id="intro">
+
+  <!-- HUD -->
+  <div class="hud-grid" id="hud-grid"></div>
+  <div class="hud-corner tl" id="corner-tl"></div>
+  <div class="hud-corner tr" id="corner-tr"></div>
+  <div class="hud-corner bl" id="corner-bl"></div>
+  <div class="hud-corner br" id="corner-br"></div>
+
+  <div class="hud-info tl-info" id="info-tl">
+    <div><span class="label">SYS:</span> <span class="value">ZEN-7749</span></div>
+    <div><span class="label">NODE:</span> <span class="value">ALPHA-01</span></div>
+    <div><span class="label">LAT:</span> <span class="value">36.8065° N</span></div>
+  </div>
+
+  <div class="hud-info tr-info" id="info-tr">
+    <div><span class="label">SIGNAL:</span> <span class="value">STRONG</span></div>
+    <div><span class="label">ENCRYPT:</span> <span class="value">AES-256</span></div>
+    <div><span class="label">UPTIME:</span> <span class="value">99.99%</span></div>
+  </div>
+
+  <div class="hud-info bl-info" id="info-bl">
+    <div><span class="label">MEM:</span> <span class="value">2.4 / 8.0 GB</span></div>
+    <div><span class="label">CPU:</span> <span class="value" id="cpu-val">17.3%</span></div>
+    <div><span class="label">NET:</span> <span class="value">1.2 Gb/s</span></div>
+  </div>
+
+  <div class="hud-info br-info" id="info-br">
+    <div><span class="label">USERS:</span> <span class="value" id="users-val">12,847</span></div>
+    <div><span class="label">PING:</span> <span class="value" id="ping-val">8ms</span></div>
+    <div><span class="label">SEC:</span> <span class="value">SECURED</span></div>
+  </div>
+
+  <div class="hud-status-bar" id="status-top">
+    <span><span class="dot live"></span>ONLINE</span>
+    <span>ZENITH OS v3.7</span>
+    <span>ENCRYPTED</span>
+  </div>
+
+  <div class="hud-bottom-bar" id="status-bottom">
+    <span>[ ZENITH NETWORK ]</span>
+    <span>EST. 2025</span>
+    <span>[ SECURE CHANNEL ]</span>
+  </div>
+
+  <!-- النوافذ المنبثقة -->
+  <div id="popups-container"></div>
+
+  <!-- التشويش -->
+  <div id="glitch-stage">
+    <div class="noise"></div>
+    <div class="scanlines"></div>
+    <div class="scanbeam"></div>
+    <div class="glitch-text">SYSTEM BREACHED</div>
+  </div>
+
+  <!-- شمس متموجة -->
+  <div id="sun-stage">
+    <div class="sun-container">
+      <div class="wavy-sun">
+        <svg viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <radialGradient id="coreGrad" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#cc2222"/>
+              <stop offset="60%" stop-color="#8b0000"/>
+              <stop offset="100%" stop-color="#3a0000"/>
+            </radialGradient>
+            <radialGradient id="glowGrad" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#8b0000" stop-opacity="0.6"/>
+              <stop offset="100%" stop-color="#8b0000" stop-opacity="0"/>
+            </radialGradient>
+          </defs>
+
+          <circle cx="160" cy="160" r="150" fill="url(#glowGrad)"/>
+
+          <g class="sun-waves" fill="none" stroke="#8b0000" stroke-width="2.5" stroke-linecap="round">
+            <path d="M 160 40 Q 175 60, 160 80 Q 145 100, 160 120 Q 175 140, 160 160 Q 145 180, 160 200 Q 175 220, 160 240 Q 145 260, 160 280"/>
+            <path d="M 160 40 Q 145 60, 160 80 Q 175 100, 160 120 Q 145 140, 160 160 Q 175 180, 160 200 Q 145 220, 160 240 Q 175 260, 160 280"/>
+          </g>
+
+          <g class="sun-waves-reverse" fill="none" stroke="#cc2222" stroke-width="2" stroke-linecap="round" opacity="0.85">
+            <path d="M 40 160 Q 60 145, 80 160 Q 100 175, 120 160 Q 140 145, 160 160 Q 180 175, 200 160 Q 220 145, 240 160 Q 260 175, 280 160"/>
+            <path d="M 40 160 Q 60 175, 80 160 Q 100 145, 120 160 Q 140 175, 160 160 Q 180 145, 200 160 Q 220 175, 240 160 Q 260 145, 280 160"/>
+          </g>
+
+          <g class="sun-waves" fill="none" stroke="#6b0000" stroke-width="1.8" stroke-linecap="round" opacity="0.7">
+            <path d="M 75 75 Q 100 90, 110 115 Q 120 140, 145 145 Q 170 150, 180 175 Q 190 200, 215 215"/>
+            <path d="M 245 75 Q 220 90, 210 115 Q 200 140, 175 145 Q 150 150, 140 175 Q 130 200, 105 215"/>
+            <path d="M 75 245 Q 100 230, 110 205 Q 120 180, 145 175 Q 170 170, 180 145 Q 190 120, 215 105"/>
+            <path d="M 245 245 Q 220 230, 210 205 Q 200 180, 175 175 Q 150 170, 140 145 Q 130 120, 105 105"/>
+          </g>
+
+          <circle class="sun-core" cx="160" cy="160" r="42" fill="url(#coreGrad)" stroke="#cc2222" stroke-width="2"/>
+          <circle cx="160" cy="160" r="14" fill="#cc2222" opacity="0.9">
+            <animate attributeName="r" values="14;18;14" dur="1.5s" repeatCount="indefinite"/>
+            <animate attributeName="opacity" values="0.9;0.5;0.9" dur="1.5s" repeatCount="indefinite"/>
+          </circle>
+        </svg>
+      </div>
+      <div class="site-name-intro">ZENITH</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ============================================================
+     شاشة تسجيل الدخول / إنشاء الحساب
+     ============================================================ -->
+<div id="auth-screen">
+  <div class="auth-container">
+    <div class="auth-logo">ZENITH</div>
+    <div class="auth-subtitle">SECURE ACCESS</div>
+
+    <div class="auth-tabs">
+      <button class="auth-tab active" data-tab="login">تسجيل الدخول</button>
+      <button class="auth-tab" data-tab="signup">حساب جديد</button>
+    </div>
+
+    <form class="auth-form active" id="login-form">
+      <div class="form-field">
+        <label>USERNAME</label>
+        <input type="text" id="login-username" placeholder="أدخل اسم المستخدم" required>
+      </div>
+      <div class="form-field">
+        <label>PASSWORD</label>
+        <input type="password" id="login-password" placeholder="أدخل كلمة المرور" required>
+      </div>
+      <div class="auth-error" id="login-error"></div>
+      <button type="submit" class="auth-submit">دخول</button>
+    </form>
+
+    <form class="auth-form" id="signup-form">
+      <div class="form-field">
+        <label>DISPLAY NAME</label>
+        <input type="text" id="signup-display" placeholder="الاسم الظاهر" required>
+      </div>
+      <div class="form-field">
+        <label>USERNAME</label>
+        <input type="text" id="signup-username" placeholder="اسم المستخدم (بالإنجليزية)" required>
+      </div>
+      <div class="form-field">
+        <label>PASSWORD</label>
+        <input type="password" id="signup-password" placeholder="كلمة المرور" required minlength="4">
+      </div>
+      <div class="auth-error" id="signup-error"></div>
+      <button type="submit" class="auth-submit">إنشاء الحساب</button>
+    </form>
+  </div>
+</div>
+
+<!-- ============================================================
+     التطبيق الرئيسي
+     ============================================================ -->
+<div id="app">
+
+  <!-- الشريط العلوي -->
+  <header class="app-header">
+    <div style="display:flex; align-items:center; gap:16px;">
+      <button class="menu-toggle" id="menuToggle" aria-label="القائمة">
+        <span class="menu-line"></span>
+        <span class="menu-line"></span>
+        <span class="menu-line"></span>
+      </button>
+      <div class="header-brand">ZENITH</div>
+    </div>
+
+    <div class="header-user">
+      <div class="user-name" id="headerUserName">—</div>
+      <div class="user-status-dot"></div>
+      <div class="user-avatar" id="headerUserAvatar">Z</div>
+    </div>
+  </header>
+
+  <!-- المحتوى -->
+  <main class="app-content">
+
+    <!-- الصفحة: الرئيسية -->
+    <section class="page active" id="page-home">
+      <h1 class="page-title">الواجهة الرئيسية</h1>
+      <div class="page-subtitle">DASHBOARD</div>
+      <div class="page-divider"></div>
+
+      <div class="gsearch">
+        <div class="glogo"><span>G</span>oogle</div>
+        <form id="gForm" autocomplete="off"><input id="gInput" type="search" placeholder="ابحث في Google..." aria-label="بحث"><button type="submit">بحث</button></form>
+        <div class="gnote">تُفتح النتائج في تبويب جديد</div>
+      </div>
+      <div class="dashboard-grid">
+        <div class="dash-card">
+          <div class="dash-card-label">MEMBERS</div>
+          <div class="dash-card-value" id="dash-members">12,847</div>
+          <div class="dash-card-desc">الأعضاء النشطون</div>
+        </div>
+        <div class="dash-card">
+          <div class="dash-card-label">MESSAGES</div>
+          <div class="dash-card-value" id="dash-messages">0</div>
+          <div class="dash-card-desc">رسائل اليوم</div>
+        </div>
+        <div class="dash-card">
+          <div class="dash-card-label">UPTIME</div>
+          <div class="dash-card-value">99.99%</div>
+          <div class="dash-card-desc">استقرار الخدمة</div>
+        </div>
+        <div class="dash-card">
+          <div class="dash-card-label">SECURITY</div>
+          <div class="dash-card-value">A+</div>
+          <div class="dash-card-desc">تصنيف الأمان</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- الصفحة: الذاكرة -->
+    <section class="page" id="page-memory">
+      <h1 class="page-title">الذاكرة</h1>
+      <div class="page-subtitle">MEMORY BANK</div>
+      <div class="page-divider"></div>
+
+      <div class="memory-list">
+        <div class="memory-item">
+          <div class="memory-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M4 4 H20 V20 H4 Z" stroke-linejoin="round"/>
+              <path d="M4 10 H20 M10 10 V20" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="memory-info">
+            <div class="memory-title">محفوظات المشروع الأساسي</div>
+            <div class="memory-meta">UPDATED 2025-01-15 • 2.4 GB</div>
+          </div>
+        </div>
+        <div class="memory-item">
+          <div class="memory-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <circle cx="12" cy="12" r="8" stroke-linejoin="round"/>
+              <path d="M12 4 V12 L17 15" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="memory-info">
+            <div class="memory-title">سجل الجلسات السابقة</div>
+            <div class="memory-meta">UPDATED 2025-01-12 • 840 MB</div>
+          </div>
+        </div>
+        <div class="memory-item">
+          <div class="memory-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M5 4 H19 V20 L12 16 L5 20 Z" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="memory-info">
+            <div class="memory-title">الملاحظات المؤمّنة</div>
+            <div class="memory-meta">UPDATED 2025-01-08 • 45 MB</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- الصفحة: السجلات -->
+    <section class="page" id="page-logs">
+      <h1 class="page-title">السجلات</h1>
+      <div class="page-subtitle">SYSTEM LOGS</div>
+      <div class="page-divider"></div>
+
+      <div class="logs-table" id="logsTable">
+        <div class="log-row header">
+          <div>TIMESTAMP</div>
+          <div>LEVEL</div>
+          <div>MESSAGE</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- الصفحة: الدردشة -->
+    <section class="page" id="page-chat">
+      <h1 class="page-title">الدردشة</h1>
+      <div class="page-subtitle">SECURE CHAT</div>
+      <div class="page-divider"></div>
+
+      <div class="chat-layout">
+        <aside class="chat-sidebar">
+          <div class="chat-sidebar-header">CONTACTS</div>
+          <input class="chat-search" id="chatSearch" placeholder="بحث بالاسم أو @اليوزر" autocomplete="off">
+          <div id="chatContacts"></div>
+        </aside>
+
+        <div class="chat-main">
+          <div class="chat-header">
+            <div class="contact-avatar" id="chatAvatar">A</div>
+            <div class="chat-header-name" id="chatHeaderName">—</div>
+            <div class="chat-header-status" id="chatHeaderStatus">ONLINE</div>
+            <div class="chat-tools"><button id="callVoice" title="اتصال صوتي">📞</button><button id="callVideo" title="مكالمة فيديو">📹</button></div>
+          </div>
+
+          <div class="chat-messages" id="chatMessages"></div>
+
+          <div class="chat-input-area">
+            <button class="chat-attach" id="chatAttach" title="إرفاق ملف أو صورة">📎</button>
+            <input type="file" id="chatFile" multiple hidden>
+            <input type="text" class="chat-input" id="chatInput" placeholder="اكتب رسالة..." autocomplete="off">
+            <button class="chat-send" id="chatSend">إرسال</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- الصفحة: الأصدقاء -->
+    <section class="page" id="page-friends">
+      <h1 class="page-title">الأصدقاء</h1>
+      <div class="page-subtitle">FRIENDS</div>
+      <div class="page-divider"></div>
+
+      <div class="friends-grid" id="friendsGrid"></div>
+    </section>
+
+    <!-- الصفحة: المكالمات -->
+    <section class="page" id="page-calls">
+      <h1 class="page-title">المكالمات</h1>
+      <div class="page-subtitle">CALLS</div>
+      <div class="page-divider"></div>
+
+      <div class="memory-list">
+        <div class="memory-item">
+          <div class="memory-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M22 16.92 V19.92 C22 20.47 21.54 20.93 20.99 20.95 C19.99 21 18.99 21 17.99 21 C8.99 21 3 15.01 3 6 C3 5 3 4 3.05 3 C3.07 2.45 3.53 2 4.08 2 H7.08 C7.63 2 8.09 2.46 8.11 3.01 C8.15 3.96 8.31 4.89 8.58 5.78 C8.7 6.17 8.6 6.6 8.3 6.9 L7.05 8.15 C8.15 10.26 9.74 11.85 11.85 12.95 L13.1 11.7 C13.4 11.4 13.83 11.3 14.22 11.42 C15.11 11.69 16.04 11.85 16.99 11.89 C17.54 11.91 18 12.37 18 12.92"/>
+            </svg>
+          </div>
+          <div class="memory-info">
+            <div class="memory-title">مكالمة صوتية - Ahmad</div>
+            <div class="memory-meta">TODAY 14:32 • 04:21</div>
+          </div>
+        </div>
+        <div class="memory-item">
+          <div class="memory-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M23 7 L16 12 L23 17 Z" stroke-linejoin="round"/>
+              <rect x="1" y="5" width="15" height="14" rx="2" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="memory-info">
+            <div class="memory-title">مكالمة فيديو - Sara</div>
+            <div class="memory-meta">YESTERDAY 18:15 • 12:47</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- الصفحة: الإعدادات -->
+    <section class="page" id="page-settings">
+      <h1 class="page-title">الإعدادات</h1>
+      <div class="page-subtitle">SETTINGS</div>
+      <div class="page-divider"></div>
+
+      <div class="settings-section">
+        <div class="settings-title">الإشعارات</div>
+        <div class="settings-item">
+          <div class="settings-label">إشعارات الرسائل</div>
+          <div class="toggle on" data-setting="notif-msg"></div>
+        </div>
+        <div class="settings-item">
+          <div class="settings-label">إشعارات المكالمات</div>
+          <div class="toggle on" data-setting="notif-call"></div>
+        </div>
+      </div>
+
+      <div class="settings-section">
+        <div class="settings-title">الخصوصية</div>
+        <div class="settings-item">
+          <div class="settings-label">إظهار حالة الاتصال</div>
+          <div class="toggle on" data-setting="privacy-status"></div>
+        </div>
+        <div class="settings-item">
+          <div class="settings-label">السماح بالرسائل من الغرباء</div>
+          <div class="toggle" data-setting="privacy-strangers"></div>
+        </div>
+      </div>
+
+      <div class="settings-section">
+        <div class="settings-title">المظهر</div>
+        <div class="settings-item">
+          <div class="settings-label">تأثيرات HUD</div>
+          <div class="toggle on" data-setting="hud-fx"></div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<!-- ============================================================
+     Sidebar Menu
+     ============================================================ -->
+<div class="menu-overlay" id="menuOverlay"></div>
+
+<aside class="side-menu" id="sideMenu">
+  <div class="side-menu-header">
+    <div class="side-menu-logo">ZENITH</div>
+    <div class="side-menu-subtitle">NAVIGATION</div>
+  </div>
+
+  <nav class="side-menu-nav">
+    <a href="#" class="side-nav-item active" data-route="home">
+      <span class="side-nav-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M3 12 L12 3 L21 12" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M5 10 V21 H19 V10" stroke-linecap="round" stroke-linejoin="round"/>
+          <rect x="10" y="14" width="4" height="7" stroke-linejoin="round"/>
+        </svg>
+      </span>
+      <span class="side-nav-text">
+        <span class="side-nav-label">الواجهة الرئيسية</span>
+        <span class="side-nav-desc">HOME</span>
+      </span>
+    </a>
+
+    <a href="#" class="side-nav-item" data-route="memory">
+      <span class="side-nav-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <rect x="4" y="6" width="16" height="12" rx="1.5" stroke-linejoin="round"/>
+          <path d="M8 6 V4 M12 6 V4 M16 6 V4" stroke-linecap="round"/>
+          <path d="M8 18 V20 M12 18 V20 M16 18 V20" stroke-linecap="round"/>
+          <circle cx="9" cy="12" r="1.5" fill="currentColor" stroke="none"/>
+          <circle cx="15" cy="12" r="1.5" fill="currentColor" stroke="none"/>
+        </svg>
+      </span>
+      <span class="side-nav-text">
+        <span class="side-nav-label">الذاكرة</span>
+        <span class="side-nav-desc">MEMORY</span>
+      </span>
+    </a>
+
+    <a href="#" class="side-nav-item" data-route="logs">
+      <span class="side-nav-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M5 4 H19 V20 H5 Z" stroke-linejoin="round"/>
+          <path d="M8 8 H16 M8 12 H16 M8 16 H13" stroke-linecap="round"/>
+        </svg>
+      </span>
+      <span class="side-nav-text">
+        <span class="side-nav-label">السجلات</span>
+        <span class="side-nav-desc">LOGS</span>
+      </span>
+    </a>
+
+    <a href="#" class="side-nav-item" data-route="chat">
+      <span class="side-nav-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M21 11.5 C21 16.75 16.75 21 11.5 21 C9.5 21 7.6 20.4 6.05 19.35 L2 21 L3.65 16.95 C2.6 15.4 2 13.5 2 11.5 C2 6.25 6.25 2 11.5 2 C16.75 2 21 6.25 21 11.5 Z" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="8" cy="11.5" r="0.8" fill="currentColor"/>
+          <circle cx="11.5" cy="11.5" r="0.8" fill="currentColor"/>
+          <circle cx="15" cy="11.5" r="0.8" fill="currentColor"/>
+        </svg>
+      </span>
+      <span class="side-nav-text">
+        <span class="side-nav-label">الدردشة</span>
+        <span class="side-nav-desc">CHAT</span>
+      </span>
+      
+    </a>
+
+    <a href="#" class="side-nav-item" data-route="friends">
+      <span class="side-nav-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <circle cx="9" cy="8" r="3.5" stroke-linejoin="round"/>
+          <path d="M2 20 C2 16.5 5 14 9 14 C13 14 16 16.5 16 20" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="17" cy="9" r="2.5" stroke-linejoin="round"/>
+          <path d="M22 19 C22 16.5 20 14.5 17.5 14.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </span>
+      <span class="side-nav-text">
+        <span class="side-nav-label">الأصدقاء</span>
+        <span class="side-nav-desc">FRIENDS</span>
+      </span>
+    </a>
+
+    <a href="#" class="side-nav-item" data-route="calls">
+      <span class="side-nav-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M22 16.92 V19.92 C22 20.47 21.54 20.93 20.99 20.95 C19.99 21 18.99 21 17.99 21 C8.99 21 3 15.01 3 6 C3 5 3 4 3.05 3 C3.07 2.45 3.53 2 4.08 2 H7.08 C7.63 2 8.09 2.46 8.11 3.01 C8.15 3.96 8.31 4.89 8.58 5.78 C8.7 6.17 8.6 6.6 8.3 6.9 L7.05 8.15 C8.15 10.26 9.74 11.85 11.85 12.95 L13.1 11.7 C13.4 11.4 13.83 11.3 14.22 11.42 C15.11 11.69 16.04 11.85 16.99 11.89 C17.54 11.91 18 12.37 18 12.92" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </span>
+      <span class="side-nav-text">
+        <span class="side-nav-label">المكالمات</span>
+        <span class="side-nav-desc">CALLS</span>
+      </span>
+    </a>
+
+    <a href="#" class="side-nav-item" data-route="settings">
+      <span class="side-nav-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <circle cx="12" cy="12" r="3" stroke-linejoin="round"/>
+          <path d="M19.4 15 C19.2 15.6 19.3 16.2 19.7 16.7 L19.8 16.8 C20.5 17.5 20.5 18.6 19.8 19.3 C19.1 20 18 20 17.3 19.3 L17.2 19.2 C16.7 18.8 16.1 18.7 15.5 18.9 C14.9 19.1 14.5 19.7 14.5 20.4 V20.5 C14.5 21.5 13.7 22.3 12.7 22.3 C11.7 22.3 10.9 21.5 10.9 20.5 V20.4 C10.9 19.7 10.5 19.1 9.9 18.9 C9.3 18.7 8.7 18.8 8.2 19.2 L8.1 19.3 C7.4 20 6.3 20 5.6 19.3 C4.9 18.6 4.9 17.5 5.6 16.8 L5.7 16.7 C6.1 16.2 6.2 15.6 6 15 C5.8 14.4 5.2 14 4.5 14 H4.4 C3.4 14 2.6 13.2 2.6 12.2 C2.6 11.2 3.4 10.4 4.4 10.4 H4.5 C5.2 10.4 5.8 10 6 9.4 C6.2 8.8 6.1 8.2 5.7 7.7 L5.6 7.6 C4.9 6.9 4.9 5.8 5.6 5.1 C6.3 4.4 7.4 4.4 8.1 5.1 L8.2 5.2 C8.7 5.6 9.3 5.7 9.9 5.5 C10.5 5.3 10.9 4.7 10.9 4 V3.9 C10.9 2.9 11.7 2.1 12.7 2.1 C13.7 2.1 14.5 2.9 14.5 3.9 V4 C14.5 4.7 14.9 5.3 15.5 5.5 C16.1 5.7 16.7 5.6 17.2 5.2 L17.3 5.1 C18 4.4 19.1 4.4 19.8 5.1 C20.5 5.8 20.5 6.9 19.8 7.6 L19.7 7.7 C19.3 8.2 19.2 8.8 19.4 9.4 C19.6 10 20.2 10.4 20.9 10.4 H21 C22 10.4 22.8 11.2 22.8 12.2 C22.8 13.2 22 14 21 14 H20.9 C20.2 14 19.6 14.4 19.4 15 Z" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </span>
+      <span class="side-nav-text">
+        <span class="side-nav-label">الإعدادات</span>
+        <span class="side-nav-desc">SETTINGS</span>
+      </span>
+    </a>
+  </nav>
+
+  <div class="side-menu-footer">
+    <div class="footer-status">
+      <span class="footer-dot"></span>
+      <span>CONNECTED</span>
+    </div>
+    <div class="footer-version">ZENITH OS v1.0</div>
+    <button class="logout-btn" id="logoutBtn">تسجيل الخروج</button>
+  </div>
+</aside>
+
+<!-- Toast Container -->
+<div class="call-ov" id="callOv">
+  <div class="call-name" id="callName">—</div><div class="call-st" id="callSt"></div>
+  <div class="call-vids"><video id="remoteVid" autoplay playsinline></video><video id="localVid" autoplay playsinline muted></video></div>
+  <div class="call-btns"><button class="acc" id="callAcc">قبول</button><button class="rej" id="callEnd">إنهاء</button></div>
+</div>
+<div class="toast-container" id="toastContainer"></div>
+<script src="script.js"></script>
+</body>
+</html>
